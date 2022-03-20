@@ -26,7 +26,9 @@ if [ "$PR_NUMBER" = "" ]; then
   PR_NUMBER=$(echo $CODEBUILD_GIT_MESSAGE | grep -oE '\w*\(#[0-9]+\)$' | cut -d'#' -f 2 | rev | cut -d')' -f 2 | rev)
 fi
 
-echo PR Number $PR_NUMBER
+if [ "$PR_NUMBER" = "" ]; then
+  echo no PR number, must be a direct commit
+fi
 
 if [ "$PR_NUMBER" != "" ]; then
     echo commit via PR, going to get PR body
