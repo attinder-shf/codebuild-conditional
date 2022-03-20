@@ -1,0 +1,33 @@
+version: 0.2
+env:
+  shell: bash
+  variables:
+    ENV: "test"
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 14.x
+    commands:
+      - echo setting extra env variables
+      - . ./aws_buildspecs/build_extras.sh
+  build:
+    on-failure: ABORT
+    commands:
+      - echo Build started on `date`
+      - echo $CODEBUILD_GIT_MESSAGE
+      - echo $CODEBUILD_GIT_BRANCH
+      - echo $CODEBUILD_PULL_REQUEST
+      - |
+        if [ "$BUILD_APP1" = "true" ]; then 
+          echo "Build App1"
+        fi
+      - |
+        if [ "$BUILD_APP2" = "true" ]; then 
+          echo "Build App2"
+        fi
+      - |
+        if [ "$BUILD_APP3" = "true" ]; then 
+          echo "Build App3"
+        fi
+     
