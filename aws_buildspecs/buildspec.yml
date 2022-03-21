@@ -10,7 +10,7 @@ phases:
       nodejs: 14.x
     commands:
       - echo setting extra env variables
-      - . ./aws_buildspecs/build_extras.sh "App1,App2,App3"
+      - . ./aws_buildspecs/build_extras.sh "App1 App2 App3"
   build:
     on-failure: ABORT
     commands:
