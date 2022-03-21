@@ -19,9 +19,9 @@ phases:
       - echo $CODEBUILD_GIT_BRANCH
       - echo $CODEBUILD_PULL_REQUEST
       - |
-        [ "$BUILD_APP1" = "true" ] && echo "Build App1"
+        [[ "$BUILD_APP1" = "true" ]] && echo "Build App1" || echo "Skipping App1"
       - |
-        [ "$BUILD_APP2" = "true" ] &&  echo "Build App2"
+        [[ "$BUILD_APP2" = "true" ]] &&  echo "Build App2" || echo "Skipping App2"
       - |
-        [ "$BUILD_APP3" = "true" ] && echo "Build App3" || echo "Skipping App3"
+        [[ "$BUILD_APP3" = "true" ]] && echo "Build App3" || echo "Skipping App3"
      
