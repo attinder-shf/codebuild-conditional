@@ -31,7 +31,7 @@ fi
 ALLOWED_APPS=$1
 
 APPS_TO_BUILD=
-PR_NUMBER=6
+
 if [ "$PR_NUMBER" != "" ]; then
     echo commit via PR, going to get PR body
     
