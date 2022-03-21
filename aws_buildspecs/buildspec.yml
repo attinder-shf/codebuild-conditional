@@ -19,13 +19,9 @@ phases:
       - echo $CODEBUILD_GIT_BRANCH
       - echo $CODEBUILD_PULL_REQUEST
       - |
-        if [ "$BUILD_APP1" = "true" ]; then 
-          echo "Build App1"
-        fi
+        if [ "$BUILD_APP1" = "true" ]; then echo "Build App1"; fi
       - |
-        if [ "$BUILD_APP2" = "true" ]; then 
-          echo "Build App2"
-        fi
+        [ "$BUILD_APP2" = "true" ] &&  echo "Build App2"
       - |
         if [ "$BUILD_APP3" = "true" ]; then 
           echo "Build App3"
