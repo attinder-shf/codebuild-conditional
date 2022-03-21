@@ -30,7 +30,7 @@ fi
 
 ALLOWED_APPS=$1
 
-APPS_TO_BUILD=()
+APPS_TO_BUILD=
 PR_NUMBER=6
 if [ "$PR_NUMBER" != "" ]; then
     echo commit via PR, going to get PR body
@@ -47,10 +47,11 @@ if [ "$PR_NUMBER" != "" ]; then
     do
       build_app=$(echo " $PR_CURL " | grep -q "\[X\] Deploy $app" && echo true || echo false )
       if [ $build_app = true ]; then 
-        APPS_TO_BUILD+=$app
+        APPS_TO_BUILD+="$app "
       fi
     done
 fi
 
+APPS_TO_BUILD=`echo $APPS_TO_BUILD | sed 's/ *$//g'` # remove trailing whitespace
 echo "build apps $APPS_TO_BUILD"
-export BUILD_APPS=${APPS_TO_BUILD[@]}
+export BUILD_APPS=$APPS_TO_BUILD
