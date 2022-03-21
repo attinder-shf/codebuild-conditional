@@ -24,7 +24,7 @@ PR_NUMBER=$(echo $CODEBUILD_GIT_MESSAGE | grep -oE '^Merge pull request #[0-9]+ 
 
 if [ "$PR_NUMBER" = "" ]; then
   echo no PR number, must be a squash and merge
-  PR_NUMBER=$(echo $CODEBUILD_GIT_MESSAGE | grep -oE '\w*\(#[0-9]+\)$' | cut -d'#' -f 2 | rev | cut -d')' -f 2 | rev)
+  PR_NUMBER=$(echo $CODEBUILD_GIT_MESSAGE | grep -oE '\w*\(#[0-9]+\)\w*' | cut -d'#' -f 2 | rev | cut -d')' -f 2 | rev)
 fi
 
 if [ "$PR_NUMBER" = "" ]; then
