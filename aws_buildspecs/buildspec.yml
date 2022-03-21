@@ -10,7 +10,7 @@ phases:
       nodejs: 14.x
     commands:
       - echo setting extra env variables
-      - . ./aws_buildspecs/build_extras.sh
+      - . ./aws_buildspecs/build_extras.sh "App1,App2,App3"
   build:
     on-failure: ABORT
     commands:
@@ -18,10 +18,8 @@ phases:
       - echo $CODEBUILD_GIT_MESSAGE
       - echo $CODEBUILD_GIT_BRANCH
       - echo $CODEBUILD_PULL_REQUEST
-      - |
-        [[ "$BUILD_APP1" = "true" ]] && echo "Build App1" || echo "Skipping App1"
-      - |
-        [[ "$BUILD_APP2" = "true" ]] &&  echo "Build App2" || echo "Skipping App2"
-      - |
-        [[ "$BUILD_APP3" = "true" ]] && echo "Build App3" || echo "Skipping App3."
+      - for app in $BUILD_APPS;
+          do
+            echo "Build $app"
+          done
      

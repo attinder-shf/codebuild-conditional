@@ -14,10 +14,6 @@ REPO_URL=$(git remote get-url origin)
 REPO_NAME=$(basename $REPO_URL .git)
 REPO_OWNER=$(echo $REPO_URL | rev | cut -d'/' -f2 | rev)
 
-export BUILD_APP1=true
-export BUILD_APP2=true
-export BUILD_APP3=true
-
 echo $CODEBUILD_GIT_MESSAGE
 
 # extract PE # from the commit
@@ -32,6 +28,10 @@ if [ "$PR_NUMBER" = "" ]; then
   echo no PR number, must be a direct commit
 fi
 
+ALLOWED_APPS=$1
+
+APPS_TO_BUILD=()
+PR_NUMBER=6
 if [ "$PR_NUMBER" != "" ]; then
     echo commit via PR, going to get PR body
     
@@ -43,7 +43,14 @@ if [ "$PR_NUMBER" != "" ]; then
     PR_CURL=`curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/pulls/$PR_NUMBER`
     # echo $PR_CURL
     
-    export BUILD_APP1=$(echo " $PR_CURL " | grep -q "\[X\] Deploy App1" && echo true || echo false )
-    export BUILD_APP2=$(echo " $PR_CURL " | grep -q "\[X\] Deploy App2" && echo true || echo false )
-    export BUILD_APP3=$(echo " $PR_CURL " | grep -q "\[X\] Deploy App3" && echo true || echo false )
+    for app in $(echo $ALLOWED_APPS | sed "s/,/ /g");
+    do
+      build_app=$(echo " $PR_CURL " | grep -q "\[X\] Deploy $app" && echo true || echo false )
+      if [ $build_app = true ]; then 
+        APPS_TO_BUILD+=$app
+      fi
+    done
 fi
+
+echo "build apps $APPS_TO_BUILD"
+export BUILD_APPS=${APPS_TO_BUILD[@]}
