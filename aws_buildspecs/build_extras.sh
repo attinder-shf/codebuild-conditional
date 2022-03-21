@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo test to run app 1
+# idea taken and some lines copied from https://github.com/thii/aws-codebuild-extras
+
 export CODEBUILD_GIT_BRANCH="$(git symbolic-ref HEAD --short 2>/dev/null)"
 if [ "$CODEBUILD_GIT_BRANCH" = "" ] ; then
   export CODEBUILD_GIT_BRANCH="$(git rev-parse HEAD | xargs git name-rev | cut -d' ' -f2 | sed 's/remotes\/origin\///g')";
