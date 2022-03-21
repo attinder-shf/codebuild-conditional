@@ -23,5 +23,5 @@ phases:
       - |
         [[ "$BUILD_APP2" = "true" ]] &&  echo "Build App2" || echo "Skipping App2"
       - |
-        [[ "$BUILD_APP3" = "true" ]] && echo "Build App3" || echo "Skipping App3"
+        [[ "$BUILD_APP3" = "true" ]] && echo "Build App3" || echo "Skipping App3."
      
