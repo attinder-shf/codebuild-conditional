@@ -18,7 +18,7 @@ phases:
       - echo $CODEBUILD_GIT_MESSAGE
       - echo $CODEBUILD_GIT_BRANCH
       - echo $CODEBUILD_PULL_REQUEST
-      - for app in $BUILD_APPS;
+      - for app in $(echo $BUILD_APPS | sed "s/,/ /g");
           do
             echo "Build $app";
           done
