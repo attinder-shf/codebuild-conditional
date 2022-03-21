@@ -20,6 +20,6 @@ phases:
       - echo $CODEBUILD_PULL_REQUEST
       - for app in $BUILD_APPS;
           do
-            echo "Build $app"
+            echo "Build $app";
           done
      
